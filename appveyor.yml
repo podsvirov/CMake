@@ -25,8 +25,32 @@ build_script:
 skip_commits:
   message: /.*\[skip appveyor\].*/
 
+test: off
+
 artifacts:
-  # Installer
-  - path: cmake-master-win$(bits)-online.exe
   # Repository
   - path: cmake-master-win$(bits)-repository.zip
+  # Installer
+  - path: cmake-master-win$(bits)-online.exe
+
+deploy:
+  # Repository
+  - provider: FTP
+    protocol: sftp
+    host: podsvirov.pro
+    username:
+      secure: IlrYnaqVefiL1+fc3u4htA==
+    password:
+      secure: fxAByw28pwkdR9kxILdGdQ==
+    folder: www/ifw.podsvirov.pro/public/cmake/repo/master/windows/win$(bits)
+    application: cmake-master-win$(bits)-repository.zip
+  # Installer
+  - provider: FTP
+    protocol: sftp
+    host: podsvirov.pro
+    username:
+      secure: IlrYnaqVefiL1+fc3u4htA==
+    password:
+      secure: fxAByw28pwkdR9kxILdGdQ==
+    folder: www/ifw.podsvirov.pro/public/cmake
+    artifact: cmake-master-win$(bits)-online.exe
