@@ -1,0 +1,33 @@
+# version format
+version: 3.4-{build}
+
+platform:
+  - Win32
+  - Win64
+configuration:
+  - Release
+
+before_build:
+  - if %platform%==Win32 set generator=Visual Studio 12 2013
+  - if %platform%==Win64 set generator=Visual Studio 12 2013 Win64
+  - if %platform%==Win32 set vcplatform=Win32
+  - if %platform%==Win64 set vcplatform=x64
+  - if %platform%==Win32 set qtdir=C:/Qt/5.5/msvc2013
+  - if %platform%==Win64 set qtdir=C:/Qt/5.5/msvc2013_64
+  - if %platform%==Win32 set xbits=x86
+  - if %platform%==Win64 set xbits=x64
+  - if %platform%==Win32 set bits=32
+  - if %platform%==Win64 set bits=64
+
+build_script:
+  - CALL appveyor.bat
+
+skip_commits:
+  message: /.*\[skip appveyor\].*/
+
+artifacts:
+  # Installer
+  - path: Build/cmake-master-win$(bits)-online.exe
+  # Repository
+  - path: Build/_CPack_Packages/win$(bits)-$(xbits)/IFW/cmake-master-win$(bits)-online/repository
+    name: cmake-master-win$(bits)-repository
