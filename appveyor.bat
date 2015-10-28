@@ -11,6 +11,14 @@ cmake -G "%generator%" -DBUILD_TESTING:BOOL=OFF -DCMAKE_PREFIX_PATH:PATH="%qtdir
 echo CMake Packaging
 
 msbuild PACKAGE.vcxproj /p:Platform=%vcplatform% /p:Configuration=%configuration% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" || goto error
+
+echo CMake Artifacts
+
+cd ..
+
+copy Build\cmake-master-win%bits%-online.exe .
+7z a cmake-master-win%bits%-repository.zip %APPVEYOR_BUILD_FOLDER%\Build\_CPack_Packages\win%bits%-%xbits%\IFW\cmake-master-win%bits%-online\repository\*
+
 goto :EOF
 
 :error

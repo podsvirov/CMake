@@ -27,7 +27,6 @@ skip_commits:
 
 artifacts:
   # Installer
-  - path: Build/cmake-master-win$(bits)-online.exe
+  - path: cmake-master-win$(bits)-online.exe
   # Repository
-  - path: Build/_CPack_Packages/win$(bits)-$(xbits)/IFW/cmake-master-win$(bits)-online/repository
-    name: cmake-master-win$(bits)-repository
+  - path: cmake-master-win$(bits)-repository.zip
